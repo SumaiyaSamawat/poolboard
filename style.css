@@ -1,0 +1,343 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #e8e8e8;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 10px;
+    overflow-x: hidden;
+}
+
+h1 {
+    color: #23452e;
+    margin-bottom: 55px;
+    text-align: center;
+    font-size: clamp(22px, 4vw, 36px);
+}
+
+.game-area {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* Pool table */
+.table {
+    flex: 1;
+    min-width: 0;
+    max-width: 800px;
+    aspect-ratio: 2 / 1;
+    background: linear-gradient(135deg, #965d30, #573019);
+    border: 10px solid #4b2916;
+    border-radius: 18px;
+    padding: 15px;
+    box-shadow: 0 12px 20px #0004;
+}
+
+.playing-area {
+    width: 100%;
+    height: 100%;
+    background: #087443;
+    border: 3px solid #c99a5a;
+    border-radius: 7px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Pockets */
+.pocket {
+    position: absolute;
+    width: 6%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, #000 55%, #222 70%);
+    border-radius: 50%;
+    z-index: 3;
+}
+
+.p1 { top: -2%; left: -2%; }
+.p2 { top: -2%; left: 47%; }
+.p3 { top: -2%; right: -2%; }
+.p4 { bottom: -2%; left: -2%; }
+.p5 { bottom: -2%; left: 47%; }
+.p6 { bottom: -2%; right: -2%; }
+
+/* Balls */
+.ball {
+    position: absolute;
+    width: 6%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(7px, 1.2vw, 13px);
+    font-weight: bold;
+    color: white;
+    border: 1px solid #ddd;
+    box-shadow: inset -3px -3px 4px #0005;
+    z-index: 2;
+}
+
+.yellow { background: #f5d400; color: black; }
+.blue { background: #0755d9; }
+.red { background: #e31919; }
+.purple { background: #7b1fa2; }
+.orange { background: #f58a16; }
+.green { background: #168b40; }
+.maroon { background: #7b1d26; }
+.eight { background: #111; }
+
+.cue {
+    background: white;
+    left: 22%;
+    top: 45%;
+}
+
+/* Ball positions */
+.ball:nth-of-type(7)  { left: 63%; top: 38%; }
+.ball:nth-of-type(8)  { left: 68%; top: 32%; }
+.ball:nth-of-type(9)  { left: 68%; top: 44%; }
+.ball:nth-of-type(10) { left: 73%; top: 26%; }
+.ball:nth-of-type(11) { left: 73%; top: 38%; }
+.ball:nth-of-type(12) { left: 73%; top: 50%; }
+.ball:nth-of-type(13) { left: 78%; top: 20%; }
+.ball:nth-of-type(14) { left: 78%; top: 32%; }
+.ball:nth-of-type(15) { left: 78%; top: 44%; }
+.ball:nth-of-type(16) { left: 78%; top: 56%; }
+.ball:nth-of-type(17) { left: 83%; top: 14%; }
+.ball:nth-of-type(18) { left: 83%; top: 26%; }
+.ball:nth-of-type(19) { left: 83%; top: 38%; }
+.ball:nth-of-type(20) { left: 83%; top: 50%; }
+.ball:nth-of-type(21) { left: 83%; top: 62%; }
+
+/* Striped balls */
+.stripe {
+    background: white;
+    color: black;
+    overflow: hidden;
+}
+
+.stripe::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 45%;
+    background: currentColor;
+    z-index: -1;
+}
+
+.stripe-yellow { color: #e5bf00; }
+.stripe-blue { color: #0755d9; }
+.stripe-red { color: #e31919; }
+.stripe-purple { color: #7b1fa2; }
+.stripe-orange { color: #f58a16; }
+.stripe-green { color: #168b40; }
+.stripe-maroon { color: #7b1d26; }
+
+/* Player characters */
+.player {
+    position: relative;
+    width: 100px;
+    height: 235px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+}
+
+/* Head */
+.head {
+    width: 43px;
+    height: 48px;
+    background: #e8b18b;
+    border: 2px solid #573725;
+    border-radius: 45% 45% 48% 48%;
+    position: absolute;
+    top: 10px;
+    z-index: 4;
+}
+
+/* Hair */
+.hair {
+    width: 47px;
+    height: 22px;
+    background: #302017;
+    border-radius: 50% 50% 15% 15%;
+    position: absolute;
+    top: 6px;
+    z-index: 5;
+}
+
+.girl .hair {
+    height: 48px;
+    width: 53px;
+    border-radius: 45% 45% 35% 35%;
+    top: 7px;
+}
+
+/* Simple eyes */
+.eyes {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #222;
+    top: 20px;
+    left: 9px;
+    box-shadow: 15px 0 #222;
+}
+
+/* Neck */
+.neck {
+    position: absolute;
+    width: 15px;
+    height: 14px;
+    background: #e8b18b;
+    top: 51px;
+    z-index: 2;
+}
+
+/* Body and shirt */
+.body {
+    position: absolute;
+    top: 60px;
+    width: 54px;
+    height: 76px;
+    border: 2px solid #333;
+    border-radius: 12px 12px 5px 5px;
+    background: #2878c8;
+    z-index: 3;
+}
+
+.girl .body {
+    background: #df5792;
+    border-radius: 14px 14px 7px 7px;
+}
+
+/* Arms */
+.arm {
+    position: absolute;
+    width: 15px;
+    height: 56px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #e8b18b;
+    top: 7px;
+}
+
+.left-arm {
+    left: -15px;
+    transform: rotate(25deg);
+}
+
+.right-arm {
+    right: -15px;
+    transform: rotate(-25deg);
+}
+
+/* Legs */
+.legs {
+    position: absolute;
+    top: 132px;
+    display: flex;
+    gap: 8px;
+}
+
+.legs div {
+    height: 62px;
+    width: 19px;
+    background: #303b54;
+    border: 2px solid #222;
+    border-radius: 5px;
+}
+
+.girl .legs div {
+    background: #593d79;
+}
+
+/* Shoes */
+.legs div::after {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 10px;
+    background: #292929;
+    border-radius: 8px;
+    position: relative;
+    top: 51px;
+    left: -4px;
+}
+
+/* Cue sticks */
+.cue-stick {
+    position: absolute;
+    width: 5px;
+    height: 150px;
+    background: linear-gradient(
+        to right,
+        #69421e,
+        #e6c18a,
+        #69421e
+    );
+    border: 1px solid #56351a;
+    border-radius: 3px;
+    top: 65px;
+    z-index: 6;
+}
+
+/* Boy holds stick angled toward the table */
+.boy .cue-stick {
+    transform: rotate(-35deg);
+    left: 67px;
+}
+
+/* Girl holds stick angled toward the table */
+.girl .cue-stick {
+    transform: rotate(35deg);
+    right: 67px;
+}
+
+.player p {
+    position: absolute;
+    top: 205px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Smaller screens */
+@media (max-width: 700px) {
+    .game-area {
+        gap: 0;
+    }
+
+    .player {
+        width: 48px;
+        transform: scale(0.65);
+        transform-origin: center center;
+        margin-left: -8px;
+        margin-right: -8px;
+    }
+
+    .table {
+        border-width: 5px;
+        padding: 7px;
+    }
+
+    .playing-area {
+        border-width: 2px;
+    }
+}
